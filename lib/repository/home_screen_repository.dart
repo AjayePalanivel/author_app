@@ -15,10 +15,14 @@ class HomeScreenRepository extends ChangeNotifier {
       final List<dynamic> data = jsonDecode(response.body)['messages'];
       _authorsList = data.map((e) => AuthorDetails.fromMap(e)).toList();
       notifyListeners();
+    } else {
+      throw Exception('Some thing went wrong in getting data');
     }
   }
 
   get authorsList => _authorsList;
+
+  get autoCompleteList => _autoCompleteList;
 
   void toggleFavorite(int id) {
     AuthorDetails? foundItem = _authorsList.firstWhere((item) => item.id == id);
@@ -46,6 +50,4 @@ class HomeScreenRepository extends ChangeNotifier {
     _autoCompleteList.remove(foundItem);
     notifyListeners();
   }
-
-  get autoCompleteList => _autoCompleteList;
 }
