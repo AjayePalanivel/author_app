@@ -1,7 +1,7 @@
 class AuthorDetails {
-  final String content;
-  final int id;
-  final Author author;
+  String content;
+  int id;
+  Author author;
   bool favorite;
 
   AuthorDetails({
@@ -19,10 +19,10 @@ class AuthorDetails {
 }
 
 class Author {
-  final String name;
-  final String photoUrl;
+  String name;
+  String photoUrl;
 
-  const Author({
+  Author({
     required this.name,
     required this.photoUrl,
   });

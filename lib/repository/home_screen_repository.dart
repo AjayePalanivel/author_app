@@ -5,29 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenRepository extends ChangeNotifier {
-  List<AuthorDetails> _authorsList = [];
+  final List<AuthorDetails> _authorsList = [];
   List<AuthorDetails> _autoCompleteList = [];
+  int _dataCount = 0;
+
+  get authorsList => _authorsList;
+
+  get autoCompleteList => _autoCompleteList;
 
   getAuthorData() async {
     final http.Response response =
         await http.get(Uri.parse("http://message-list.appspot.com/messages"));
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body)['messages'];
-      _authorsList = data.map((e) => AuthorDetails.fromMap(e)).toList();
+      _authorsList.addAll(data.map((e) {
+        AuthorDetails author = AuthorDetails.fromMap(e);
+        author.id = ++_dataCount;
+        return author;
+      }).toList());
       notifyListeners();
     } else {
       throw Exception('Some thing went wrong in getting data');
     }
   }
 
-  get authorsList => _authorsList;
-
-  get autoCompleteList => _autoCompleteList;
-
   void toggleFavorite(int id) {
     AuthorDetails? foundItem = _authorsList.firstWhere((item) => item.id == id);
-    int index = _authorsList.indexWhere((element) => element == foundItem);
-    _authorsList[index].favorite = !_authorsList[index].favorite;
+    foundItem.favorite = !foundItem.favorite;
     notifyListeners();
   }
 
@@ -38,16 +42,14 @@ class HomeScreenRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteAuthor(int id) {
+  void deleteAuthor(int id, {bool isSearchedData = false}) {
     AuthorDetails? foundItem = _authorsList.firstWhere((item) => item.id == id);
     _authorsList.remove(foundItem);
-    notifyListeners();
-  }
-
-  void deleteSearchAuthor(int id) {
-    AuthorDetails? foundItem =
-        _autoCompleteList.firstWhere((item) => item.id == id);
-    _autoCompleteList.remove(foundItem);
+    if (isSearchedData) {
+      AuthorDetails? foundItem =
+          _autoCompleteList.firstWhere((item) => item.id == id);
+      _autoCompleteList.remove(foundItem);
+    }
     notifyListeners();
   }
 }

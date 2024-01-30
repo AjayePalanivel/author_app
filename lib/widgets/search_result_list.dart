@@ -48,9 +48,8 @@ class _SearchResultListState extends State<SearchResultList> {
                         authorDetail: authorDetail,
                         deleteCallBack: () {
                           setState(() {
-                            homeScreenRepository.deleteAuthor(authorDetail.id);
-                            homeScreenRepository
-                                .deleteSearchAuthor(authorDetail.id);
+                            homeScreenRepository.deleteAuthor(authorDetail.id,
+                                isSearchedData: true);
                             Navigator.of(context).pop();
                           });
                         },

@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AuthorDisplayList extends StatefulWidget {
-  const AuthorDisplayList({super.key});
+  final ScrollController scrollController;
+  const AuthorDisplayList({super.key, required this.scrollController});
 
   @override
   State<AuthorDisplayList> createState() => _AuthorDisplayListState();
@@ -20,6 +21,7 @@ class _AuthorDisplayListState extends State<AuthorDisplayList> {
       builder: (context, homeScreenRepository, child) {
         return Expanded(
           child: ListView.builder(
+            controller: widget.scrollController,
             itemCount: homeScreenRepository.authorsList.length,
             itemBuilder: (context, index) {
               AuthorDetails authorDetail =

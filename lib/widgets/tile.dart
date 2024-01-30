@@ -12,7 +12,7 @@ Widget tile({
 }) {
   double width = MediaQuery.of(context).size.width;
   return Padding(
-    padding: const EdgeInsets.only(top: 30.0),
+    padding: const EdgeInsets.only(bottom: 30.0),
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
       decoration: BoxDecoration(

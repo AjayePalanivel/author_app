@@ -30,7 +30,7 @@ class InputLight {
 class InputCursor {
   // Cursor color
   static const Color primaryCursor = Color(0x89000000);
-  //Selection Handle Color
+  // Selection Handle Color
   static const Color primarySelectionHandle = Color(0x89000000);
 }
 
@@ -46,4 +46,15 @@ class AlertDialogLight {
 
 class TileLight {
   static const Color primary = Color(0x0D000000);
+}
+
+class LoadingLight {
+  static const Color primary = Color(0xFFFF746E);
+}
+
+class FluttertoastLight {
+  // Background color
+  static const Color primaryBackground = Color(0xFFFFFFFF);
+  // Text color
+  static const Color primaryText = Color(0xFF000000);
 }
